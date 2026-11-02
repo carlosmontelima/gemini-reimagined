@@ -10,6 +10,8 @@
 
 ## 🎬 Preview / Demonstração em Vídeo
 
+https://github.com/user-attachments/assets/54166d47-e6a5-49e7-a8a7-58ab3de5648f
+
 ---
 
 # 🇧🇷 Português (Brasil)
