@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini Reimagined — Pixel Art & Glass UI",
+  "version": "1.2.0",
+  "description": "Transforma o Google Gemini em um ambiente clean em Glassmorphism com tipografia customizável e wallpapers animados em Pixel Art moderna.",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://gemini.google.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://gemini.google.com/*"
+      ],
+      "css": [
+        "src/styles/styles.css"
+      ],
+      "js": [
+        "src/scripts/background-canvas.js",
+        "src/scripts/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

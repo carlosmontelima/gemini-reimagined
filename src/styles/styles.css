@@ -1,0 +1,639 @@
+/* ==========================================================================
+   Gemini Reimagined — Global Stylesheet (Glassmorphism + Transparent DOM)
+   ========================================================================== */
+
+:root {
+  /* Tipografia customizável em tempo real */
+  --custom-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --custom-font-size: 16px;
+
+  /* Tokens base de Glassmorphism (sobrescritos dinamicamente por cada tema) */
+  --gr-glass-bg: rgba(8, 20, 36, 0.72);
+  --gr-glass-bg-strong: rgba(5, 14, 26, 0.85);
+  --gr-glass-bg-subtle: rgba(12, 28, 48, 0.62);
+  --gr-glass-bg-hover: rgba(22, 48, 78, 0.80);
+  --gr-glass-border: rgba(140, 210, 255, 0.24);
+  --gr-glass-border-strong: rgba(160, 225, 255, 0.42);
+  --gr-glass-shadow: 0 10px 32px rgba(0, 6, 18, 0.40), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  --gr-glass-blur: 16px;
+  --gr-accent-glow: rgba(56, 189, 248, 0.25);
+  --gr-scrollbar-thumb: rgba(140, 210, 255, 0.30);
+  --gr-scrollbar-thumb-hover: rgba(160, 225, 255, 0.58);
+  --gr-brand-primary: #38bdf8;
+  --gr-brand-secondary: #2dd4bf;
+
+  /* Sobrescreve tokens de superfície de menus nativos do Angular Material do Gemini */
+  --mat-menu-container-color: transparent !important;
+  --mdc-elevated-card-container-color: transparent !important;
+  --mat-sidenav-container-background-color: transparent !important;
+  --mat-sidenav-content-background-color: transparent !important;
+}
+
+/* ==========================================================================
+   1. Canvas de Wallpaper em Pixel Art (Camada de Fundo)
+   ========================================================================== */
+#gr-pixel-wallpaper {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  image-rendering: -moz-crisp-edges !important;
+  image-rendering: crisp-edges !important;
+  image-rendering: pixelated !important;
+  display: block !important;
+  user-select: none !important;
+}
+
+/* ==========================================================================
+   2. Scrollbar Linear, Contínua e Sem Fundo Bugado
+   ========================================================================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gr-scrollbar-thumb) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  background: transparent !important;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece,
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+*::-webkit-scrollbar-button {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--gr-scrollbar-thumb) !important;
+  border-radius: 999px !important;
+  border: none !important;
+  transition: background-color 0.2s ease !important;
+}
+
+*::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:active {
+  background: var(--gr-scrollbar-thumb-hover) !important;
+}
+
+/* ==========================================================================
+   3. Transparência Global nos Containers de Layout do Gemini
+   ========================================================================== */
+html,
+body,
+chat-app,
+main,
+.chat-app,
+.main-content,
+mat-sidenav-container,
+mat-sidenav-content,
+.mat-drawer-container,
+.mat-drawer-content,
+bard-sidenav-container,
+bard-sidenav-content,
+.conversation-container,
+.chat-history,
+.chat-history-scroll-container,
+infinite-scroller,
+.infinite-scroller,
+.zero-state-container,
+.new-chat-zero-state,
+bottom-container,
+.bottom-container,
+input-container,
+.input-area-wrapper,
+.input-area-container,
+.input-area,
+fieldset.input-area,
+.content-wrapper,
+.page-container,
+[class*="conversation-container"],
+[class*="chat-history"],
+/* Containers externos da resposta e da pergunta zerados para nunca criar caixa dupla */
+model-response,
+.model-response,
+.presented-response-container,
+.model-response-container,
+.response-container-content,
+.response-content,
+message-content,
+.message-content,
+.model-response-text,
+user-query,
+user-query-content,
+.user-query,
+.user-query-container,
+.user-query-bubble-container,
+.query-content {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Remove sombras e gradientes opacos antes/depois da barra inferior e cabeçalho */
+bottom-container::before,
+bottom-container::after,
+.bottom-container::before,
+.bottom-container::after,
+input-container::before,
+input-container::after,
+.input-area-container::before,
+.input-area-container::after,
+.gradient-container,
+.bottom-gradient,
+.top-gradient,
+[class*="gradient-overlay"],
+[class*="fade-background"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* ==========================================================================
+   4. Tipografia em Tempo Real (Fonte e Tamanho do Texto)
+   ========================================================================== */
+message-content,
+.message-content,
+.model-response-text,
+.markdown,
+.markdown p,
+.markdown li,
+.markdown td,
+.markdown th,
+.markdown blockquote,
+user-query,
+.user-query,
+.user-query-container,
+.query-text,
+.query-content,
+.response-content,
+.conversation-container p,
+.conversation-container li,
+rich-textarea,
+rich-textarea .ql-editor,
+rich-textarea p,
+.input-area textarea,
+[data-message-author-role] {
+  font-family: var(--custom-font-family) !important;
+  font-size: var(--custom-font-size) !important;
+  line-height: 1.65 !important;
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
+   5. Cards de Mensagem (Box que Abraça o Texto com Gaps Laterais)
+   ========================================================================== */
+
+/* 5.1. Bolha ÚNICA da Pergunta do Usuário */
+.user-query-bubble-with-background {
+  background: var(--gr-glass-bg-strong) !important;
+  backdrop-filter: blur(var(--gr-glass-blur)) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(var(--gr-glass-blur)) saturate(150%) !important;
+  border: 1px solid var(--gr-glass-border-strong) !important;
+  box-shadow: var(--gr-glass-shadow) !important;
+  border-radius: 22px !important;
+  color: #f8fafc !important;
+  outline: none !important;
+}
+
+.user-query-bubble-with-background * {
+  color: #f8fafc !important;
+}
+
+/* 5.2. Box ÚNICA para a Resposta da IA — Abraça o texto com gaps confortáveis nos lados */
+model-response > .response-container,
+model-response .response-container:not(.response-container .response-container) {
+  display: block !important;
+  width: fit-content !important;
+  max-width: min(820px, calc(100% - 48px)) !important;
+  margin: 10px auto 16px auto !important;
+  padding: 20px 28px !important;
+  background: var(--gr-glass-bg) !important;
+  backdrop-filter: blur(var(--gr-glass-blur)) saturate(145%) !important;
+  -webkit-backdrop-filter: blur(var(--gr-glass-blur)) saturate(145%) !important;
+  border: 1px solid var(--gr-glass-border) !important;
+  box-shadow: var(--gr-glass-shadow) !important;
+  border-radius: 24px !important;
+  color: #f1f5f9 !important;
+  outline: none !important;
+  transition: background 0.35s ease, border-color 0.35s ease !important;
+}
+
+/* Remove margens laterais exageradas internas do Gemini para a box abraçar o texto de verdade */
+model-response .presented-response-container,
+model-response .model-response-container,
+model-response .response-container-content,
+model-response .response-content {
+  width: auto !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Garante que o texto e os ícones dentro da resposta da IA fiquem claros e nítidos em qualquer tema */
+model-response .response-container .markdown,
+model-response .response-container .markdown p,
+model-response .response-container .markdown li,
+model-response .response-container .markdown h1,
+model-response .response-container .markdown h2,
+model-response .response-container .markdown h3,
+model-response .response-container .markdown h4,
+model-response .response-container .markdown strong,
+model-response .response-container .model-response-text {
+  color: #f1f5f9 !important;
+}
+
+/* Botões de ação abaixo da resposta da IA (curtir, copiar, regenerar, etc.) */
+model-response .response-container button,
+message-actions button,
+.response-container-footer button {
+  color: rgba(226, 232, 240, 0.85) !important;
+}
+
+model-response .response-container button:hover,
+message-actions button:hover {
+  background: var(--gr-glass-bg-hover) !important;
+  color: #ffffff !important;
+}
+
+/* Blocos de código dentro da resposta */
+.markdown pre,
+.markdown code-block,
+code-block,
+.code-block-decoration {
+  background: var(--gr-glass-bg-strong) !important;
+  border: 1px solid var(--gr-glass-border) !important;
+  border-radius: 14px !important;
+}
+
+/* ==========================================================================
+   6. Aba Lateral de Conversas (Sidebar) Transparente com Blur
+   ========================================================================== */
+mat-sidenav,
+.mat-drawer,
+bard-sidenav,
+side-navigation-v2,
+.sidenav-with-history-container {
+  background: var(--gr-glass-bg) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  border-right: 1px solid var(--gr-glass-border) !important;
+  box-shadow: 6px 0 28px rgba(0, 0, 0, 0.32) !important;
+  transition: background 0.35s ease, border-color 0.35s ease !important;
+}
+
+/* Remove o fundo opaco dos containers internos da aba de conversas */
+mat-sidenav div:not(.conversation):not([role="button"]):not(.mat-mdc-button-persistent-ripple),
+bard-sidenav div:not(.conversation):not([role="button"]),
+side-navigation-v2 div:not(.conversation):not([role="button"]),
+side-navigation-content,
+conversations-list,
+.conversations-container,
+.conversation-items-container,
+.overflow-container,
+mat-nav-list {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Textos e títulos da aba de conversas sempre legíveis e uniformes */
+mat-sidenav *,
+bard-sidenav *,
+side-navigation-v2 * {
+  color: #e2e8f0 !important;
+  -webkit-text-fill-color: #e2e8f0 !important;
+  background-clip: border-box !important;
+}
+
+/* Item de conversa individual na Sidebar */
+.conversation,
+a[data-test-id="conversation"],
+.conversation-items-container a,
+mat-sidenav .mat-mdc-list-item {
+  border-radius: 14px !important;
+  margin: 2px 6px !important;
+  border: 1px solid transparent !important;
+  transition: background 0.2s ease, border-color 0.2s ease !important;
+}
+
+.conversation:hover,
+a[data-test-id="conversation"]:hover,
+.conversation.selected,
+a[data-test-id="conversation"][aria-current="page"],
+.mat-mdc-list-item:hover {
+  background: var(--gr-glass-bg-hover) !important;
+  border-color: var(--gr-glass-border) !important;
+}
+
+/* Botão "New chat / Nova conversa" na Sidebar */
+button[data-test-id="new-chat-button"],
+bard-sidenav button.mat-mdc-unelevated-button,
+side-navigation-v2 button[aria-label*="chat"],
+side-navigation-v2 button[aria-label*="conversa"] {
+  background: var(--gr-glass-bg-subtle) !important;
+  border: 1px solid var(--gr-glass-border-strong) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* ==========================================================================
+   7. Barra de Input com Preview Animada do Tema (Fundo Escuro e Borrado)
+      + Preservação TOTAL da posição nativa dos botões ('+', fullscreen, etc.)
+   ========================================================================== */
+
+/* Container principal da caixa de digitação:
+   Usa `isolation: isolate` para criar contexto de empilhamento próprio sem mexer no `position`
+   de nenhum filho nativo (assim nem o botão '+' nem o botão fullscreen saem do lugar!) */
+.text-input-field {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  background: var(--gr-glass-bg-strong) !important;
+  backdrop-filter: blur(18px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%) !important;
+  border: 1px solid var(--gr-glass-border-strong) !important;
+  box-shadow: var(--gr-glass-shadow), 0 0 24px var(--gr-accent-glow) !important;
+  border-radius: 28px !important;
+  outline: none !important;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+
+/* Camada interna em z-index: -1 que roda a preview animada atrás de tudo dentro do input */
+.gr-input-live-bg {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  border-radius: inherit !important;
+}
+
+.gr-input-live-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  image-rendering: pixelated !important;
+  filter: blur(3px) brightness(0.68) saturate(130%) !important;
+  transform: scale(1.06) !important;
+}
+
+.gr-input-live-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: var(--gr-glass-bg) !important;
+  opacity: 0.72 !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+/* Zera apenas fundos/bordas das divs internas SEM tocar em position, display ou justify-content */
+.text-input-field div:not(.gr-input-live-bg):not(.gr-input-live-overlay),
+.text-input-field span,
+.text-input-field bard-mode-switcher,
+.text-input-field .leading-actions-wrapper,
+.text-input-field .trailing-actions-wrapper,
+.text-input-field .input-buttons-wrapper-bottom,
+.text-input-field .mic-button-container,
+.text-input-field .send-button-container,
+bard-mode-switcher {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Texto digitado e placeholder no input sempre claros */
+.text-input-field rich-textarea,
+.text-input-field .ql-editor,
+.text-input-field p,
+.text-input-field span {
+  color: #f8fafc !important;
+}
+
+.text-input-field .ql-editor.ql-blank::before {
+  color: rgba(226, 232, 240, 0.75) !important;
+}
+
+/* Botão de '+' à esquerda, botão fullscreen e botões circulares (microfone, enviar, upload) */
+.text-input-field .leading-actions-wrapper button,
+.text-input-field button.mat-mdc-icon-button,
+.text-input-field uploader button,
+.text-input-field speech-dictation-mic-button button,
+.text-input-field .send-button {
+  background: var(--gr-glass-bg-subtle) !important;
+  border: 1px solid var(--gr-glass-border) !important;
+  border-radius: 50% !important;
+  color: #f8fafc !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.text-input-field .leading-actions-wrapper button:hover,
+.text-input-field button.mat-mdc-icon-button:hover,
+.text-input-field uploader button:hover,
+.text-input-field speech-dictation-mic-button button:hover,
+.text-input-field .send-button:hover {
+  background: var(--gr-glass-bg-hover) !important;
+  border-color: var(--gr-glass-border-strong) !important;
+  box-shadow: 0 0 16px var(--gr-accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Botão Seletor de Modelo ("Argon v") centralizado em si mesmo */
+.text-input-field bard-mode-switcher button,
+.text-input-field button:not(.mat-mdc-icon-button):not(.send-button),
+bard-mode-switcher button,
+button.mode-switcher-button,
+[data-test-id*="mode-switcher"] button,
+[data-test-id*="model"] button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  height: 36px !important;
+  padding: 0 14px !important;
+  background: var(--gr-glass-bg-subtle) !important;
+  backdrop-filter: blur(12px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(150%) !important;
+  border: 1px solid var(--gr-glass-border-strong) !important;
+  border-radius: 999px !important;
+  color: #f8fafc !important;
+  line-height: 1 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  transition: background-color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease !important;
+}
+
+.text-input-field bard-mode-switcher button:hover,
+.text-input-field button:not(.mat-mdc-icon-button):not(.send-button):hover,
+bard-mode-switcher button:hover {
+  background: var(--gr-glass-bg-hover) !important;
+  border-color: var(--gr-brand-primary) !important;
+  box-shadow: 0 0 18px var(--gr-accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+}
+
+/* ==========================================================================
+   8. Relógio Dinâmico na Página Inicial (Estável, Sem Piscar)
+   ========================================================================== */
+#gr-home-clock-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto 16px auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+#gr-home-clock-wrapper[hidden] {
+  display: none !important;
+}
+
+.gr-home-clock-pill {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  padding: 10px 26px;
+  border-radius: 22px;
+  background: var(--gr-glass-bg);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid var(--gr-glass-border-strong);
+  box-shadow: var(--gr-glass-shadow), 0 0 24px var(--gr-accent-glow);
+  font-family: var(--custom-font-family);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: #f8fafc;
+  text-shadow: 0 2px 12px var(--gr-accent-glow);
+}
+
+.gr-home-clock-sec {
+  font-size: 0.58em;
+  font-weight: 600;
+  color: var(--gr-brand-primary);
+  margin-left: 4px;
+  opacity: 0.92;
+}
+
+/* ==========================================================================
+   9. Menu Dropdown do Seletor de Modelo e Popovers Flutuantes em Glass
+   ========================================================================== */
+.cdk-overlay-pane .mat-mdc-menu-panel,
+.cdk-overlay-pane .mat-mdc-select-panel,
+.cdk-overlay-pane [role="menu"],
+.cdk-overlay-pane [role="listbox"],
+.mat-mdc-dialog-surface {
+  background: var(--gr-glass-bg-strong) !important;
+  backdrop-filter: blur(22px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+  border: 1px solid var(--gr-glass-border-strong) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+}
+
+.cdk-overlay-pane .mat-mdc-menu-content,
+.cdk-overlay-pane .mat-mdc-menu-panel div,
+.cdk-overlay-pane [role="menu"] div {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.cdk-overlay-pane .mat-mdc-menu-item,
+.cdk-overlay-pane [role="menuitem"],
+.cdk-overlay-pane [role="menuitemradio"],
+.cdk-overlay-pane [role="option"] {
+  border-radius: 12px !important;
+  margin: 2px 6px !important;
+  color: #f1f5f9 !important;
+  transition: background 0.18s ease !important;
+}
+
+.cdk-overlay-pane .mat-mdc-menu-item *,
+.cdk-overlay-pane [role="menuitem"] *,
+.cdk-overlay-pane [role="menuitemradio"] * {
+  color: #f1f5f9 !important;
+}
+
+.cdk-overlay-pane .mat-mdc-menu-item:hover,
+.cdk-overlay-pane [role="menuitem"]:hover,
+.cdk-overlay-pane [role="menuitemradio"]:hover,
+.cdk-overlay-pane [role="menuitemradio"][aria-checked="true"] {
+  background: var(--gr-glass-bg-hover) !important;
+}
+
+/* ==========================================================================
+   10. Cabeçalho e Logo Temática do Gemini (Apenas no Topo Esquerdo do Header)
+   ========================================================================== */
+header,
+.top-bar,
+.boqOnegoogleliteOgbOneGoogleBar,
+.header-container {
+  background: var(--gr-glass-bg-subtle) !important;
+  backdrop-filter: blur(14px) saturate(145%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(145%) !important;
+  border-bottom: 1px solid var(--gr-glass-border) !important;
+}
+
+header bard-logo span,
+header .bard-logo span,
+.top-bar bard-logo span,
+.top-bar .bard-logo span,
+bard-logo .bard-logo-text {
+  background: linear-gradient(135deg, #ffffff 0%, var(--gr-brand-primary) 55%, var(--gr-brand-secondary) 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 700 !important;
+  filter: drop-shadow(0 2px 8px var(--gr-accent-glow)) !important;
+}
+
+/* Pílulas de Sugestão e Cards da Tela Inicial */
+.suggestion-chip,
+.intent-card,
+.zero-state-card,
+.mat-mdc-outlined-button {
+  background: var(--gr-glass-bg) !important;
+  backdrop-filter: blur(12px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(140%) !important;
+  border: 1px solid var(--gr-glass-border) !important;
+  box-shadow: var(--gr-glass-shadow) !important;
+  color: #f8fafc !important;
+  transition: all 0.2s ease !important;
+}
+
+.suggestion-chip:hover,
+.intent-card:hover,
+.zero-state-card:hover,
+.mat-mdc-outlined-button:hover {
+  background: var(--gr-glass-bg-hover) !important;
+  border-color: var(--gr-glass-border-strong) !important;
+  transform: translateY(-1px) !important;
+}
